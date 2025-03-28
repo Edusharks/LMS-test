@@ -29,9 +29,15 @@
             padding: 1rem;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
             z-index: 100;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        header.hidden {
+            transform: translateY(-100%);
         }
         
         .logo {
@@ -55,6 +61,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 15px;
+            margin-top: 80px; /* Space for header */
         }
         
         .project-header {
@@ -68,6 +75,7 @@
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             text-align: center;
+            position: relative;
         }
         
         .project-header img {
@@ -180,16 +188,19 @@
         
         .slide iframe {
             width: 100%;
-            height: 300px;
+            height: 0;
+            padding-bottom: 56.25%; /* Same aspect ratio as videos */
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
         .slide img {
             max-width: 100%;
-            max-height: 300px;
+            max-height: 400px;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: block;
+            margin: 0 auto;
         }
         
         .slide p {
@@ -377,6 +388,82 @@
             font-size: 0.8rem;
         }
         
+        /* Edit button and modal styles */
+        .edit-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .close-modal {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .edit-form {
+            margin-top: 20px;
+        }
+        
+        .edit-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .edit-form input[type="text"],
+        .edit-form textarea,
+        .edit-form select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .edit-form button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
         /* Desktop adjustments */
         @media (min-width: 768px) {
             .project-header {
@@ -415,15 +502,26 @@
             .character {
                 width: 100px;
             }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                margin-top: 70px;
+                padding: 10px;
+            }
             
-            .slide iframe {
-                height: 400px;
+            .project-header {
+                padding: 10px;
+            }
+            
+            .tab-content {
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header id="mainHeader">
         <div class="logo">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/MicroBit_logo.png/320px-MicroBit_logo.png" alt="Micro:bit Logo">
             <h1>Micro:bit Adventure</h1>
@@ -432,6 +530,7 @@
     
     <div class="container">
         <div class="project-header">
+            <button class="edit-btn" onclick="openEditModal()">✏️</button>
             <img src="https://www.elecfreaks.com/wp-content/uploads/2022/12/2-1.png" alt="Beating Heart Project">
             <div>
                 <h1 class="project-title">Beating Heart Project</h1>
@@ -515,8 +614,10 @@
                     <p>2. Setting up your Micro:bit environment</p>
                 </div>
                 <div class="slide">
-                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 3">
-                    <p>3. Creating your first heart animation</p>
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/2yzT7_QGLLc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p>3. Programming the Beating Heart animation</p>
                 </div>
                 <div class="slide">
                     <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 4">
@@ -632,6 +733,51 @@
         <p>© 2023 Micro:bit Adventure - Fun STEM Learning for Kids</p>
     </footer>
     
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeEditModal()">&times;</span>
+            <h2>Edit Content</h2>
+            <div class="edit-form">
+                <label for="editSection">Select Section to Edit:</label>
+                <select id="editSection">
+                    <option value="title">Project Title</option>
+                    <option value="description">Project Description</option>
+                    <option value="video1">First Video</option>
+                    <option value="video2">Second Video</option>
+                    <option value="slides">Slides</option>
+                    <option value="quiz">Quiz Questions</option>
+                </select>
+                
+                <div id="titleEdit" class="edit-section">
+                    <label for="projectTitle">Project Title:</label>
+                    <input type="text" id="projectTitle" value="Beating Heart Project">
+                    
+                    <label for="projectSubtitle">Subtitle:</label>
+                    <input type="text" id="projectSubtitle" value="Make your Micro:bit display a beating heart animation!">
+                </div>
+                
+                <div id="video1Edit" class="edit-section" style="display:none;">
+                    <label for="video1Url">Video URL:</label>
+                    <input type="text" id="video1Url" value="https://www.youtube.com/embed/8qzYWH10o6E">
+                    
+                    <label for="video1Title">Video Title:</label>
+                    <input type="text" id="video1Title" value="Introduction to Micro:bit">
+                </div>
+                
+                <div id="video2Edit" class="edit-section" style="display:none;">
+                    <label for="video2Url">Video URL:</label>
+                    <input type="text" id="video2Url" value="https://www.youtube.com/embed/2yzT7_QGLLc">
+                    
+                    <label for="video2Title">Video Title:</label>
+                    <input type="text" id="video2Title" value="Programming the Beating Heart">
+                </div>
+                
+                <button onclick="saveChanges()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         // Tab functionality
         function openTab(tabName) {
@@ -744,6 +890,56 @@
             window.speechSynthesis.speak(speech);
         }
         
+        // Header hide on scroll
+        let lastScroll = 0;
+        const header = document.getElementById('mainHeader');
+        
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                header.classList.remove('hidden');
+                return;
+            }
+            
+            if (currentScroll > lastScroll && !header.classList.contains('hidden')) {
+                // Scroll down
+                header.classList.add('hidden');
+            } else if (currentScroll < lastScroll && header.classList.contains('hidden')) {
+                // Scroll up
+                header.classList.remove('hidden');
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Edit modal functionality
+        function openEditModal() {
+            document.getElementById('editModal').style.display = 'block';
+        }
+        
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+        
+        function saveChanges() {
+            // In a real implementation, this would save changes to a database
+            // For this demo, we'll just show an alert
+            alert('Changes saved! (This is a demo - changes would be saved to a database in a real app)');
+            closeEditModal();
+        }
+        
+        // Show/hide edit sections based on selection
+        document.getElementById('editSection').addEventListener('change', function() {
+            const sections = document.querySelectorAll('.edit-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            const selectedSection = this.value + 'Edit';
+            document.getElementById(selectedSection).style.display = 'block';
+        });
+        
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             updateProgressBar('overview');
@@ -752,6 +948,20 @@
             if (speechSynthesis.onvoiceschanged !== undefined) {
                 speechSynthesis.onvoiceschanged = function() {};
             }
+            
+            // Set up iframe heights for slides
+            const slideIframes = document.querySelectorAll('.slide iframe');
+            slideIframes.forEach(iframe => {
+                iframe.style.height = (iframe.offsetWidth * 0.5625) + 'px';
+            });
+        });
+        
+        // Resize iframes when window resizes
+        window.addEventListener('resize', function() {
+            const slideIframes = document.querySelectorAll('.slide iframe');
+            slideIframes.forEach(iframe => {
+                iframe.style.height = (iframe.offsetWidth * 0.5625) + 'px';
+            });
         });
     </script>
 </body>
