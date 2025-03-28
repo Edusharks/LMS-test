@@ -33,7 +33,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 25px; /* Increased gap between image and text */
+            gap: 25px;
             margin-bottom: 20px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -348,6 +348,24 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
+        .export-btn {
+            position: absolute;
+            top: 15px;
+            right: 55px;
+            background-color: var(--success);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
         .modal {
             display: none;
             position: fixed;
@@ -523,6 +541,7 @@
     <div class="container">
         <div class="project-header">
             <button class="edit-btn" onclick="openEditModal()">✏️</button>
+            <button class="export-btn" onclick="exportHTML()">⬇️</button>
             <img src="https://www.elecfreaks.com/wp-content/uploads/2022/12/2-1.png" alt="Beating Heart Project" id="projectImage">
             <div>
                 <h1 class="project-title" id="projectTitle">Beating Heart Project</h1>
@@ -845,12 +864,13 @@ We use 'show icon' and 'pause' blocks to create animation</textarea>
             { url: "https://view.genially.com/67de49ded67908621a726b03", description: "1. Introduction to the Beating Heart project", type: "iframe" },
             { url: "https://view.genially.com/67de49e4ab31ac746b27c48b", description: "2. Setting up your Micro:bit environment", type: "iframe" },
             { url: "https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg", description: "3. Programming the Beating Heart animation", type: "image" },
-            { url: "https://example.com/slide4.jpg", description: "4. Adding pauses between animations", type: "image" },
-            { url: "https://example.com/slide5.jpg", description: "5. Adjusting the animation timing", type: "image" },
-            { url: "https://example.com/slide6.jpg", description: "6. Creating the smaller heart animation", type: "image" },
-            { url: "https://example.com/slide7.jpg", description: "7. Adding the second pause", type: "image" },
-            { url: "https://example.com/slide8.jpg", description: "8. Putting it all in a forever loop", type: "image" },
-            { url: "https://example.com/slide9.jpg", description: "9. Downloading and testing your program", type: "image" }
+            { url: "", description: "", type: "iframe" },
+            { url: "", description: "", type: "iframe" },
+            { url: "", description: "", type: "iframe" },
+            { url: "", description: "", type: "iframe" },
+            { url: "", description: "", type: "iframe" },
+            { url: "", description: "", type: "iframe" },
+            { url: "", description: "", type: "iframe" }
         ];
         
         let challengesData = [
@@ -858,7 +878,12 @@ We use 'show icon' and 'pause' blocks to create animation</textarea>
             { title: "Create a blinking smiley", description: "Use the same technique but with smiley faces instead of hearts" },
             { title: "Add a button control", description: "Make the heart only beat when you press button A" },
             { title: "Add sound effects", description: "Use the Micro:bit's speaker to add heartbeat sounds" },
-            { title: "Create a heartbeat monitor", description: "Use the accelerometer to detect movement and sync the heart to it" }
+            { title: "Create a heartbeat monitor", description: "Use the accelerometer to detect movement and sync the heart to it" },
+            { title: "", description: "" },
+            { title: "", description: "" },
+            { title: "", description: "" },
+            { title: "", description: "" },
+            { title: "", description: "" }
         ];
         
         // Tab functionality
@@ -1092,6 +1117,8 @@ We use 'show icon' and 'pause' blocks to create animation</textarea>
             container.innerHTML = '';
             
             slidesData.forEach((slide, index) => {
+                if (index >= 10) return;
+                
                 const slideDiv = document.createElement('div');
                 slideDiv.style.marginBottom = '20px';
                 slideDiv.style.padding = '10px';
@@ -1144,6 +1171,8 @@ We use 'show icon' and 'pause' blocks to create animation</textarea>
             container.innerHTML = '';
             
             challengesData.forEach((challenge, index) => {
+                if (index >= 10) return;
+                
                 const challengeDiv = document.createElement('div');
                 challengeDiv.style.marginBottom = '20px';
                 challengeDiv.style.padding = '10px';
@@ -1305,6 +1334,125 @@ We use 'show icon' and 'pause' blocks to create animation</textarea>
                 
                 container.appendChild(challengeDiv);
             });
+        }
+        
+        function exportHTML() {
+            // Create a clone of the document to modify for export
+            const exportDoc = document.cloneNode(true);
+            
+            // Remove edit and export buttons from the exported version
+            const exportEditBtn = exportDoc.querySelector('.edit-btn');
+            if (exportEditBtn) exportEditBtn.remove();
+            const exportExportBtn = exportDoc.querySelector('.export-btn');
+            if (exportExportBtn) exportExportBtn.remove();
+            
+            // Remove the edit modal completely
+            const exportModal = exportDoc.getElementById('editModal');
+            if (exportModal) exportModal.remove();
+            
+            // Remove all script elements (keeping only basic functionality)
+            const scripts = exportDoc.querySelectorAll('script');
+            scripts.forEach(script => script.remove());
+            
+            // Add minimal script for basic functionality
+            const newScript = exportDoc.createElement('script');
+            newScript.textContent = `
+                // Basic tab functionality
+                function openTab(tabName) {
+                    const tabs = document.getElementsByClassName('tab-content');
+                    for (let i = 0; i < tabs.length; i++) {
+                        tabs[i].classList.remove('active');
+                    }
+                    
+                    const tabButtons = document.getElementsByClassName('tab');
+                    for (let i = 0; i < tabButtons.length; i++) {
+                        tabButtons[i].classList.remove('active');
+                    }
+                    
+                    document.getElementById(tabName).classList.add('active');
+                    event.currentTarget.classList.add('active');
+                }
+                
+                // Basic slideshow functionality
+                let currentSlideIndex = 0;
+                function showSlide(n) {
+                    const slides = document.querySelectorAll('#slideshowContainer .slide');
+                    if (slides.length === 0) return;
+                    
+                    for (let i = 0; i < slides.length; i++) {
+                        slides[i].classList.remove('active');
+                    }
+                    
+                    currentSlideIndex = (n + slides.length) % slides.length;
+                    slides[currentSlideIndex].classList.add('active');
+                }
+                
+                function nextSlide() {
+                    showSlide(currentSlideIndex + 1);
+                }
+                
+                function prevSlide() {
+                    showSlide(currentSlideIndex - 1);
+                }
+                
+                // Basic quiz functionality
+                function selectOption(option) {
+                    const options = option.parentElement.getElementsByClassName('quiz-option');
+                    for (let i = 0; i < options.length; i++) {
+                        options[i].classList.remove('selected');
+                    }
+                    option.classList.add('selected');
+                }
+                
+                function submitQuiz() {
+                    const selectedOptions = document.querySelectorAll('.quiz-option.selected');
+                    if (selectedOptions.length < 3) {
+                        alert("Please answer all questions before submitting!");
+                        return;
+                    }
+                    
+                    // Show feedback for each question
+                    document.querySelectorAll('.quiz-feedback').forEach(fb => {
+                        fb.style.display = 'block';
+                    });
+                }
+                
+                // Initialize slideshow
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Set up event listeners for iframe resizing
+                    window.addEventListener('resize', function() {
+                        const iframes = document.querySelectorAll('.slide iframe, .slide img');
+                        iframes.forEach(iframe => {
+                            if (iframe.offsetWidth > 0) {
+                                iframe.style.height = (iframe.offsetWidth * 0.5625) + 'px';
+                            }
+                        });
+                    });
+                });
+            `;
+            exportDoc.body.appendChild(newScript);
+            
+            // Get the HTML as a string
+            let htmlContent = `<!DOCTYPE html>\n${exportDoc.documentElement.outerHTML}`;
+            
+            // Create a Blob with the HTML content
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            
+            // Create a download link
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'microbit-project.html';
+            
+            // Trigger the download
+            document.body.appendChild(a);
+            a.click();
+            
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
         }
         
         // Initialize
