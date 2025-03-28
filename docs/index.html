@@ -23,54 +23,20 @@
             line-height: 1.6;
         }
         
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
-            transition: transform 0.3s ease-in-out;
-        }
-        
-        header.hidden {
-            transform: translateY(-100%);
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .logo img {
-            height: 40px;
-        }
-        
-        .logo h1 {
-            font-size: 1.5rem;
-            margin: 0.5rem 0;
-        }
-        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 15px;
-            margin-top: 80px; /* Space for header */
         }
         
         .project-header {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 25px; /* Increased gap between image and text */
             margin-bottom: 20px;
-            background-color: white;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
             padding: 15px;
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -82,22 +48,14 @@
             width: 120px;
             height: auto;
             border-radius: 10px;
+            border: 3px solid white;
         }
         
         .project-title {
-            color: var(--primary);
+            color: white;
             margin: 0;
             font-size: 1.5rem;
-        }
-        
-        .badge {
-            background-color: var(--accent);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            display: inline-block;
-            margin-top: 8px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
         
         .tabs {
@@ -186,22 +144,13 @@
             text-align: center;
         }
         
-        .slide iframe {
+        .slide iframe, .slide img {
             width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* Same aspect ratio as videos */
-            border: none;
+            height: 400px;
+            object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        .slide img {
-            max-width: 100%;
-            max-height: 400px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            display: block;
-            margin: 0 auto;
+            background-color: #f5f5f5;
         }
         
         .slide p {
@@ -366,7 +315,7 @@
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: 10px;
-            width: 25%;
+            width: 20%;
             transition: width 0.5s;
         }
         
@@ -380,41 +329,139 @@
             z-index: 100;
         }
         
-        footer {
-            background-color: var(--dark);
+        /* Edit button and modal styles */
+        .edit-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent);
             color: white;
-            text-align: center;
-            padding: 15px;
-            margin-top: 30px;
-            font-size: 0.8rem;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
-        /* Image upload styles */
-        .image-upload {
-            margin: 15px 0;
-            text-align: center;
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
         }
         
-        .image-upload-btn {
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .close-modal {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .edit-form {
+            margin-top: 20px;
+        }
+        
+        .edit-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .edit-form input[type="text"],
+        .edit-form textarea,
+        .edit-form select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .edit-form button {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 10px 15px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 0.9rem;
+            margin-right: 10px;
         }
         
-        .image-upload input {
-            display: none;
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
         }
         
-        .uploaded-image {
-            max-width: 100%;
-            max-height: 300px;
-            margin-top: 10px;
-            border-radius: 10px;
-            display: none;
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #ddd;
+        }
+        
+        .color-option.selected {
+            border: 2px solid #000;
+            transform: scale(1.1);
+        }
+        
+        .font-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .font-option {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .font-option.selected {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .size-selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .size-option {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .size-option.selected {
+            background-color: var(--primary);
+            color: white;
         }
         
         /* Desktop adjustments */
@@ -427,10 +474,6 @@
             
             .project-header img {
                 width: 150px;
-            }
-            
-            .logo h1 {
-                font-size: 1.8rem;
             }
             
             .project-title {
@@ -459,7 +502,6 @@
         
         @media (max-width: 600px) {
             .container {
-                margin-top: 70px;
                 padding: 10px;
             }
             
@@ -470,24 +512,21 @@
             .tab-content {
                 padding: 15px;
             }
+            
+            .slide iframe, .slide img {
+                height: 250px;
+            }
         }
     </style>
 </head>
 <body>
-    <header id="mainHeader">
-        <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/MicroBit_logo.png/320px-MicroBit_logo.png" alt="Micro:bit Logo">
-            <h1>Micro:bit Adventure</h1>
-        </div>
-    </header>
-    
     <div class="container">
         <div class="project-header">
-            <img src="https://www.elecfreaks.com/wp-content/uploads/2022/12/2-1.png" alt="Beating Heart Project">
+            <button class="edit-btn" onclick="openEditModal()">✏️</button>
+            <img src="https://www.elecfreaks.com/wp-content/uploads/2022/12/2-1.png" alt="Beating Heart Project" id="projectImage">
             <div>
-                <h1 class="project-title">Beating Heart Project</h1>
-                <p>Make your Micro:bit display a beating heart animation!</p>
-                <span class="badge">Beginner Level</span>
+                <h1 class="project-title" id="projectTitle">Beating Heart Project</h1>
+                <p id="projectSubtitle">Make your Micro:bit display a beating heart animation!</p>
             </div>
         </div>
         
@@ -499,132 +538,82 @@
             <div class="tab active" onclick="openTab('overview')">Overview</div>
             <div class="tab" onclick="openTab('video')">Video Lesson</div>
             <div class="tab" onclick="openTab('slides')">Step-by-Step</div>
+            <div class="tab" onclick="openTab('challenges')">Challenges</div>
             <div class="tab" onclick="openTab('quiz')">Quiz</div>
         </div>
         
         <div id="overview" class="tab-content active">
             <h2>About This Project</h2>
-            <p>In this project, you'll learn how to create a beating heart animation on your Micro:bit's LED display. This is a great first project to understand how the Micro:bit works!</p>
+            <p id="overviewText">In this project, you'll learn how to create a beating heart animation on your Micro:bit's LED display. This is a great first project to understand how the Micro:bit works!</p>
             
             <h3>What You'll Learn</h3>
-            <div class="step">
+            <div class="step" id="learnStep1">
                 <div class="step-number">1</div>
                 <div class="step-content">
-                    <strong>Hardware Concepts</strong>
-                    <p>How to download & flash code to your Micro:bit and how the LED matrix works</p>
+                    <strong id="learnTitle1">Hardware Concepts</strong>
+                    <p id="learnDesc1">How to download & flash code to your Micro:bit and how the LED matrix works</p>
                 </div>
             </div>
-            <div class="step">
+            <div class="step" id="learnStep2">
                 <div class="step-number">2</div>
                 <div class="step-content">
-                    <strong>Programming Concepts</strong>
-                    <p>The difference between 'on start' and 'forever' blocks, and how to create simple animations</p>
+                    <strong id="learnTitle2">Programming Concepts</strong>
+                    <p id="learnDesc2">The difference between 'on start' and 'forever' blocks, and how to create simple animations</p>
                 </div>
             </div>
-            <div class="step">
+            <div class="step" id="learnStep3">
                 <div class="step-number">3</div>
                 <div class="step-content">
-                    <strong>Computational Thinking</strong>
-                    <p>How to break down problems into smaller steps (decomposition) and recognize patterns</p>
+                    <strong id="learnTitle3">Computational Thinking</strong>
+                    <p id="learnDesc3">How to break down problems into smaller steps (decomposition) and recognize patterns</p>
+                </div>
+            </div>
+            <div class="step" id="learnStep4">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <strong id="learnTitle4">STEM Learning</strong>
+                    <p id="learnDesc4">Integrating Science, Technology, Engineering, and Math concepts through hands-on activities</p>
                 </div>
             </div>
         </div>
         
         <div id="video" class="tab-content">
             <h2>Video Lesson</h2>
-            <p>Watch this video to learn how to create the beating heart animation:</p>
+            <p id="videoIntroText">Watch this video to learn how to create the beating heart animation:</p>
             
-            <h3>Programming the Beating Heart</h3>
+            <h3 id="videoTitle">Programming the Beating Heart</h3>
             <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/2yzT7_QGLLc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/2yzT7_QGLLc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="mainVideo"></iframe>
             </div>
             
             <h3>Key Points from the Video</h3>
-            <ul style="font-size: 0.9rem; padding-left: 20px;">
+            <ul id="videoKeyPoints" style="font-size: 0.9rem; padding-left: 20px;">
                 <li>The LED matrix has 25 lights (5 rows x 5 columns)</li>
                 <li>'on start' runs once when the Micro:bit turns on</li>
                 <li>'forever' keeps repeating the code inside it</li>
                 <li>We use 'show icon' and 'pause' blocks to create animation</li>
             </ul>
-            
-            <div class="image-upload">
-                <h3>Add Your Own Images</h3>
-                <input type="file" id="imageUpload" accept="image/*">
-                <button class="image-upload-btn" onclick="document.getElementById('imageUpload').click()">Upload Image</button>
-                <img id="uploadedImage" class="uploaded-image" alt="Your uploaded image">
-            </div>
         </div>
         
         <div id="slides" class="tab-content">
             <h2>Step-by-Step Guide</h2>
             
-            <div class="slideshow">
-                <div class="slide active">
-                    <iframe src="https://view.genially.com/67de49ded67908621a726b03" frameborder="0" allowfullscreen></iframe>
-                    <p>1. Introduction to the Beating Heart project</p>
-                </div>
-                <div class="slide">
-                    <iframe src="https://view.genially.com/67de49e4ab31ac746b27c48b" frameborder="0" allowfullscreen></iframe>
-                    <p>2. Setting up your Micro:bit environment</p>
-                </div>
-                <div class="slide">
-                    <div class="video-container">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/2yzT7_QGLLc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <p>3. Programming the Beating Heart animation</p>
-                </div>
-                <div class="slide">
-                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 4">
-                    <p>4. Adding pauses between animations</p>
-                </div>
-                <div class="slide">
-                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 5">
-                    <p>5. Adjusting the animation timing</p>
-                </div>
-                <div class="slide">
-                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 6">
-                    <p>6. Creating the smaller heart animation</p>
-                </div>
-                <div class="slide">
-                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 7">
-                    <p>7. Adding the second pause</p>
-                </div>
-                <div class="slide">
-                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 8">
-                    <p>8. Putting it all in a forever loop</p>
-                </div>
-                <div class="slide">
-                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 9">
-                    <p>9. Downloading and testing your program</p>
-                </div>
+            <div class="slideshow" id="slideshowContainer">
+                <!-- Slides will be dynamically inserted here -->
             </div>
             
             <div class="slide-nav">
                 <button onclick="prevSlide()">Previous</button>
                 <button onclick="nextSlide()">Next</button>
             </div>
+        </div>
+        
+        <div id="challenges" class="tab-content">
+            <h2>Project Challenges</h2>
+            <p>Try these challenges to extend your learning:</p>
             
-            <h3>Try These Challenges!</h3>
-            <div class="step">
-                <div class="step-number">★</div>
-                <div class="step-content">
-                    <strong>Make it faster or slower</strong>
-                    <p>Change the pause times to make the heart beat faster or slower</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="step-number">★</div>
-                <div class="step-content">
-                    <strong>Create a blinking smiley</strong>
-                    <p>Use the same technique but with smiley faces instead of hearts</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="step-number">★</div>
-                <div class="step-content">
-                    <strong>Add a button control</strong>
-                    <p>Make the heart only beat when you press button A</p>
-                </div>
+            <div id="challengesContainer">
+                <!-- Challenges will be dynamically inserted here -->
             </div>
         </div>
         
@@ -683,11 +672,195 @@
     
     <img src="https://i.imgur.com/WVZ4JQK.png" alt="Robot Helper" class="character" onclick="speak('Hello! I can help you with your Micro:bit project!')">
     
-    <footer>
-        <p>© 2023 Micro:bit Adventure - Fun STEM Learning for Kids</p>
-    </footer>
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeEditModal()">&times;</span>
+            <h2>Edit Content</h2>
+            <div class="edit-form">
+                <label for="editSection">Select Section to Edit:</label>
+                <select id="editSection" onchange="showEditSection()">
+                    <option value="title">Project Title & Image</option>
+                    <option value="overview">Overview Text</option>
+                    <option value="learn">What You'll Learn</option>
+                    <option value="video">Video Lesson</option>
+                    <option value="slides">Step-by-Step Slides</option>
+                    <option value="challenges">Challenges</option>
+                    <option value="quiz">Quiz Questions</option>
+                    <option value="style">Style & Colors</option>
+                </select>
+                
+                <div id="titleEdit" class="edit-section">
+                    <label for="projectTitle">Project Title:</label>
+                    <input type="text" id="editProjectTitle" value="Beating Heart Project">
+                    
+                    <label for="projectSubtitle">Subtitle:</label>
+                    <input type="text" id="editProjectSubtitle" value="Make your Micro:bit display a beating heart animation!">
+                    
+                    <label for="projectImageUrl">Project Image URL:</label>
+                    <input type="text" id="projectImageUrl" value="https://www.elecfreaks.com/wp-content/uploads/2022/12/2-1.png">
+                    <p style="font-size: 0.8rem; color: #666;">Recommended size: 300x300px or similar aspect ratio</p>
+                </div>
+                
+                <div id="overviewEdit" class="edit-section" style="display:none;">
+                    <label for="overviewText">Overview Text:</label>
+                    <textarea id="editOverviewText" rows="5">In this project, you'll learn how to create a beating heart animation on your Micro:bit's LED display. This is a great first project to understand how the Micro:bit works!</textarea>
+                </div>
+                
+                <div id="learnEdit" class="edit-section" style="display:none;">
+                    <h3>What You'll Learn Items</h3>
+                    
+                    <label>Item 1 Title:</label>
+                    <input type="text" id="learnTitle1Input" value="Hardware Concepts">
+                    
+                    <label>Item 1 Description:</label>
+                    <textarea id="learnDesc1Input" rows="2">How to download & flash code to your Micro:bit and how the LED matrix works</textarea>
+                    
+                    <label>Item 2 Title:</label>
+                    <input type="text" id="learnTitle2Input" value="Programming Concepts">
+                    
+                    <label>Item 2 Description:</label>
+                    <textarea id="learnDesc2Input" rows="2">The difference between 'on start' and 'forever' blocks, and how to create simple animations</textarea>
+                    
+                    <label>Item 3 Title:</label>
+                    <input type="text" id="learnTitle3Input" value="Computational Thinking">
+                    
+                    <label>Item 3 Description:</label>
+                    <textarea id="learnDesc3Input" rows="2">How to break down problems into smaller steps (decomposition) and recognize patterns</textarea>
+                    
+                    <label>Item 4 Title:</label>
+                    <input type="text" id="learnTitle4Input" value="STEM Learning">
+                    
+                    <label>Item 4 Description:</label>
+                    <textarea id="learnDesc4Input" rows="2">Integrating Science, Technology, Engineering, and Math concepts through hands-on activities</textarea>
+                </div>
+                
+                <div id="videoEdit" class="edit-section" style="display:none;">
+                    <label for="videoIntroText">Introduction Text:</label>
+                    <input type="text" id="editVideoIntroText" value="Watch this video to learn how to create the beating heart animation:">
+                    
+                    <label for="videoTitle">Video Title:</label>
+                    <input type="text" id="editVideoTitle" value="Programming the Beating Heart">
+                    
+                    <label for="mainVideoUrl">Video URL:</label>
+                    <input type="text" id="editMainVideoUrl" value="https://www.youtube.com/embed/2yzT7_QGLLc">
+                    
+                    <label for="videoKeyPoints">Key Points (one per line):</label>
+                    <textarea id="editVideoKeyPoints" rows="5">The LED matrix has 25 lights (5 rows x 5 columns)
+'on start' runs once when the Micro:bit turns on
+'forever' keeps repeating the code inside it
+We use 'show icon' and 'pause' blocks to create animation</textarea>
+                </div>
+                
+                <div id="slidesEdit" class="edit-section" style="display:none;">
+                    <h3>Step-by-Step Slides</h3>
+                    <p>Add up to 10 slides with multimedia content (image, video, or presentation URL)</p>
+                    
+                    <div id="slidesEditContainer">
+                        <!-- Slides edit fields will be added here dynamically -->
+                    </div>
+                    <button type="button" onclick="addSlideEditField()">Add Another Slide</button>
+                </div>
+                
+                <div id="challengesEdit" class="edit-section" style="display:none;">
+                    <h3>Project Challenges</h3>
+                    <p>Add up to 10 challenges (empty ones won't be displayed)</p>
+                    
+                    <div id="challengesEditContainer">
+                        <!-- Challenges edit fields will be added here dynamically -->
+                    </div>
+                    <button type="button" onclick="addChallengeEditField()">Add Another Challenge</button>
+                </div>
+                
+                <div id="quizEdit" class="edit-section" style="display:none;">
+                    <label>Question 1:</label>
+                    <input type="text" id="quizQuestion1" value="What is the correct order of blocks to make a heart beat animation?">
+                    
+                    <label>Correct Answer:</label>
+                    <input type="text" id="quizAnswer1Correct" value="A) show icon → pause → show smaller icon → pause">
+                    
+                    <label>Incorrect Answers:</label>
+                    <input type="text" id="quizAnswer1Incorrect1" value="B) pause → show icon → pause → show smaller icon">
+                    <input type="text" id="quizAnswer1Incorrect2" value="C) show icon → show smaller icon → pause → pause">
+                </div>
+                
+                <div id="styleEdit" class="edit-section" style="display:none;">
+                    <label>Primary Color:</label>
+                    <div class="color-picker">
+                        <div class="color-option selected" style="background-color: #5E81F4;" onclick="selectColor('primary', '#5E81F4')"></div>
+                        <div class="color-option" style="background-color: #FF7AC6;" onclick="selectColor('primary', '#FF7AC6')"></div>
+                        <div class="color-option" style="background-color: #7CE7AC;" onclick="selectColor('primary', '#7CE7AC')"></div>
+                        <div class="color-option" style="background-color: #FFB800;" onclick="selectColor('primary', '#FFB800')"></div>
+                        <div class="color-option" style="background-color: #9B51E0;" onclick="selectColor('primary', '#9B51E0')"></div>
+                        <input type="color" id="primaryColorPicker" onchange="customColorSelected('primary', this.value)" style="width: 40px; height: 40px;">
+                    </div>
+                    
+                    <label>Secondary Color:</label>
+                    <div class="color-picker">
+                        <div class="color-option" style="background-color: #5E81F4;" onclick="selectColor('secondary', '#5E81F4')"></div>
+                        <div class="color-option selected" style="background-color: #FF7AC6;" onclick="selectColor('secondary', '#FF7AC6')"></div>
+                        <div class="color-option" style="background-color: #7CE7AC;" onclick="selectColor('secondary', '#7CE7AC')"></div>
+                        <div class="color-option" style="background-color: #FFB800;" onclick="selectColor('secondary', '#FFB800')"></div>
+                        <div class="color-option" style="background-color: #9B51E0;" onclick="selectColor('secondary', '#9B51E0')"></div>
+                        <input type="color" id="secondaryColorPicker" onchange="customColorSelected('secondary', this.value)" style="width: 40px; height: 40px;">
+                    </div>
+                    
+                    <label>Accent Color:</label>
+                    <div class="color-picker">
+                        <div class="color-option" style="background-color: #5E81F4;" onclick="selectColor('accent', '#5E81F4')"></div>
+                        <div class="color-option" style="background-color: #FF7AC6;" onclick="selectColor('accent', '#FF7AC6')"></div>
+                        <div class="color-option" style="background-color: #7CE7AC;" onclick="selectColor('accent', '#7CE7AC')"></div>
+                        <div class="color-option selected" style="background-color: #FFB800;" onclick="selectColor('accent', '#FFB800')"></div>
+                        <div class="color-option" style="background-color: #9B51E0;" onclick="selectColor('accent', '#9B51E0')"></div>
+                        <input type="color" id="accentColorPicker" onchange="customColorSelected('accent', this.value)" style="width: 40px; height: 40px;">
+                    </div>
+                    
+                    <label>Font Family:</label>
+                    <div class="font-selector">
+                        <div class="font-option selected" onclick="selectFont('Comic Sans MS, sans-serif')" style="font-family: 'Comic Sans MS', sans-serif;">Comic Sans</div>
+                        <div class="font-option" onclick="selectFont('Arial, sans-serif')" style="font-family: Arial, sans-serif;">Arial</div>
+                        <div class="font-option" onclick="selectFont('Georgia, serif')" style="font-family: Georgia, serif;">Georgia</div>
+                        <div class="font-option" onclick="selectFont('Courier New, monospace')" style="font-family: 'Courier New', monospace;">Courier</div>
+                        <div class="font-option" onclick="selectFont('Verdana, sans-serif')" style="font-family: Verdana, sans-serif;">Verdana</div>
+                    </div>
+                    
+                    <label>Text Size:</label>
+                    <div class="size-selector">
+                        <div class="size-option" onclick="selectSize('small')">Small</div>
+                        <div class="size-option selected" onclick="selectSize('medium')">Medium</div>
+                        <div class="size-option" onclick="selectSize('large')">Large</div>
+                    </div>
+                </div>
+                
+                <button type="button" onclick="saveChanges()">Save Changes</button>
+                <button type="button" onclick="closeEditModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
     
     <script>
+        // Global variables for editing
+        let currentSlideIndex = 0;
+        let slidesData = [
+            { url: "https://view.genially.com/67de49ded67908621a726b03", description: "1. Introduction to the Beating Heart project", type: "iframe" },
+            { url: "https://view.genially.com/67de49e4ab31ac746b27c48b", description: "2. Setting up your Micro:bit environment", type: "iframe" },
+            { url: "https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg", description: "3. Programming the Beating Heart animation", type: "image" },
+            { url: "https://example.com/slide4.jpg", description: "4. Adding pauses between animations", type: "image" },
+            { url: "https://example.com/slide5.jpg", description: "5. Adjusting the animation timing", type: "image" },
+            { url: "https://example.com/slide6.jpg", description: "6. Creating the smaller heart animation", type: "image" },
+            { url: "https://example.com/slide7.jpg", description: "7. Adding the second pause", type: "image" },
+            { url: "https://example.com/slide8.jpg", description: "8. Putting it all in a forever loop", type: "image" },
+            { url: "https://example.com/slide9.jpg", description: "9. Downloading and testing your program", type: "image" }
+        ];
+        
+        let challengesData = [
+            { title: "Make it faster or slower", description: "Change the pause times to make the heart beat faster or slower" },
+            { title: "Create a blinking smiley", description: "Use the same technique but with smiley faces instead of hearts" },
+            { title: "Add a button control", description: "Make the heart only beat when you press button A" },
+            { title: "Add sound effects", description: "Use the Micro:bit's speaker to add heartbeat sounds" },
+            { title: "Create a heartbeat monitor", description: "Use the accelerometer to detect movement and sync the heart to it" }
+        ];
+        
         // Tab functionality
         function openTab(tabName) {
             const tabs = document.getElementsByClassName('tab-content');
@@ -708,24 +881,24 @@
         }
         
         // Slideshow functionality
-        let currentSlide = 0;
-        const slides = document.getElementsByClassName('slide');
-        
         function showSlide(n) {
+            const slides = document.querySelectorAll('#slideshowContainer .slide');
+            if (slides.length === 0) return;
+            
             for (let i = 0; i < slides.length; i++) {
                 slides[i].classList.remove('active');
             }
             
-            currentSlide = (n + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
+            currentSlideIndex = (n + slides.length) % slides.length;
+            slides[currentSlideIndex].classList.add('active');
         }
         
         function nextSlide() {
-            showSlide(currentSlide + 1);
+            showSlide(currentSlideIndex + 1);
         }
         
         function prevSlide() {
-            showSlide(currentSlide - 1);
+            showSlide(currentSlideIndex - 1);
         }
         
         // Quiz functionality
@@ -759,9 +932,10 @@
         
         // Progress bar
         function updateProgressBar(tab) {
-            let progress = 25;
-            if (tab === 'video') progress = 50;
-            else if (tab === 'slides') progress = 75;
+            let progress = 20;
+            if (tab === 'video') progress = 40;
+            else if (tab === 'slides') progress = 60;
+            else if (tab === 'challenges') progress = 80;
             else if (tab === 'quiz') progress = 100;
             
             document.getElementById('progressBar').style.width = progress + '%';
@@ -799,42 +973,339 @@
             window.speechSynthesis.speak(speech);
         }
         
-        // Header hide on scroll
-        let lastScroll = 0;
-        const header = document.getElementById('mainHeader');
-        
-        window.addEventListener('scroll', function() {
-            const currentScroll = window.pageYOffset;
+        // Edit modal functionality
+        function openEditModal() {
+            // Load current data into edit form
+            document.getElementById('editProjectTitle').value = document.getElementById('projectTitle').textContent;
+            document.getElementById('editProjectSubtitle').value = document.getElementById('projectSubtitle').textContent;
+            document.getElementById('projectImageUrl').value = document.getElementById('projectImage').src;
+            document.getElementById('editOverviewText').value = document.getElementById('overviewText').textContent;
             
-            if (currentScroll <= 0) {
-                header.classList.remove('hidden');
+            // Load "What You'll Learn" items
+            document.getElementById('learnTitle1Input').value = document.getElementById('learnTitle1').textContent;
+            document.getElementById('learnDesc1Input').value = document.getElementById('learnDesc1').textContent;
+            document.getElementById('learnTitle2Input').value = document.getElementById('learnTitle2').textContent;
+            document.getElementById('learnDesc2Input').value = document.getElementById('learnDesc2').textContent;
+            document.getElementById('learnTitle3Input').value = document.getElementById('learnTitle3').textContent;
+            document.getElementById('learnDesc3Input').value = document.getElementById('learnDesc3').textContent;
+            document.getElementById('learnTitle4Input').value = document.getElementById('learnTitle4').textContent;
+            document.getElementById('learnDesc4Input').value = document.getElementById('learnDesc4').textContent;
+            
+            // Load video tab data
+            document.getElementById('editVideoIntroText').value = document.getElementById('videoIntroText').textContent;
+            document.getElementById('editVideoTitle').value = document.getElementById('videoTitle').textContent;
+            document.getElementById('editMainVideoUrl').value = document.getElementById('mainVideo').src;
+            
+            const keyPointsItems = document.querySelectorAll('#videoKeyPoints li');
+            const keyPointsText = Array.from(keyPointsItems).map(li => li.textContent).join('\n');
+            document.getElementById('editVideoKeyPoints').value = keyPointsText;
+            
+            // Load slides data
+            loadSlidesEditFields();
+            
+            // Load challenges data
+            loadChallengesEditFields();
+            
+            document.getElementById('editModal').style.display = 'block';
+        }
+        
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+        
+        function showEditSection() {
+            const sections = document.querySelectorAll('.edit-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            const selectedSection = document.getElementById('editSection').value + 'Edit';
+            document.getElementById(selectedSection).style.display = 'block';
+        }
+        
+        function selectColor(type, color) {
+            // Update color picker selection
+            const colorOptions = document.querySelectorAll(`#styleEdit .color-option`);
+            colorOptions.forEach(option => {
+                option.classList.remove('selected');
+                if (option.style.backgroundColor === color) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // Update the color picker input
+            if (type === 'primary') {
+                document.getElementById('primaryColorPicker').value = color;
+            } else if (type === 'secondary') {
+                document.getElementById('secondaryColorPicker').value = color;
+            } else if (type === 'accent') {
+                document.getElementById('accentColorPicker').value = color;
+            }
+            
+            // Update CSS variable
+            document.documentElement.style.setProperty(`--${type}`, color);
+        }
+        
+        function customColorSelected(type, color) {
+            selectColor(type, color);
+        }
+        
+        function selectFont(font) {
+            // Update font option selections
+            const fontOptions = document.querySelectorAll('.font-option');
+            fontOptions.forEach(option => {
+                option.classList.remove('selected');
+                if (option.style.fontFamily === font) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // Update body font
+            document.body.style.fontFamily = font;
+        }
+        
+        function selectSize(size) {
+            // Update size option selections
+            const sizeOptions = document.querySelectorAll('.size-option');
+            sizeOptions.forEach(option => {
+                option.classList.remove('selected');
+                if (option.textContent.toLowerCase() === size) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // Update text size
+            let fontSize;
+            if (size === 'small') {
+                fontSize = '14px';
+            } else if (size === 'medium') {
+                fontSize = '16px';
+            } else if (size === 'large') {
+                fontSize = '18px';
+            }
+            
+            document.body.style.fontSize = fontSize;
+        }
+        
+        function loadSlidesEditFields() {
+            const container = document.getElementById('slidesEditContainer');
+            container.innerHTML = '';
+            
+            slidesData.forEach((slide, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.style.marginBottom = '20px';
+                slideDiv.style.padding = '10px';
+                slideDiv.style.border = '1px solid #ddd';
+                slideDiv.style.borderRadius = '5px';
+                
+                slideDiv.innerHTML = `
+                    <label>Slide ${index + 1} URL:</label>
+                    <input type="text" class="slide-url" value="${slide.url}" data-index="${index}">
+                    
+                    <label>Slide ${index + 1} Description:</label>
+                    <input type="text" class="slide-desc" value="${slide.description}" data-index="${index}">
+                    
+                    <label>Slide ${index + 1} Type:</label>
+                    <select class="slide-type" data-index="${index}">
+                        <option value="iframe" ${slide.type === 'iframe' ? 'selected' : ''}>Presentation/Video</option>
+                        <option value="image" ${slide.type === 'image' ? 'selected' : ''}>Image</option>
+                    </select>
+                    
+                    <button type="button" onclick="removeSlideEditField(${index})" style="margin-top: 5px;">Remove</button>
+                `;
+                
+                container.appendChild(slideDiv);
+            });
+        }
+        
+        function addSlideEditField() {
+            if (slidesData.length >= 10) {
+                alert("Maximum of 10 slides allowed");
                 return;
             }
             
-            if (currentScroll > lastScroll && !header.classList.contains('hidden')) {
-                // Scroll down
-                header.classList.add('hidden');
-            } else if (currentScroll < lastScroll && header.classList.contains('hidden')) {
-                // Scroll up
-                header.classList.remove('hidden');
+            const newIndex = slidesData.length;
+            slidesData.push({ url: "", description: `New Slide ${newIndex + 1}`, type: "iframe" });
+            loadSlidesEditFields();
+        }
+        
+        function removeSlideEditField(index) {
+            if (slidesData.length <= 1) {
+                alert("You must have at least one slide");
+                return;
             }
             
-            lastScroll = currentScroll;
-        });
+            slidesData.splice(index, 1);
+            loadSlidesEditFields();
+        }
         
-        // Image upload functionality
-        document.getElementById('imageUpload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const img = document.getElementById('uploadedImage');
-                    img.src = event.target.result;
-                    img.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
+        function loadChallengesEditFields() {
+            const container = document.getElementById('challengesEditContainer');
+            container.innerHTML = '';
+            
+            challengesData.forEach((challenge, index) => {
+                const challengeDiv = document.createElement('div');
+                challengeDiv.style.marginBottom = '20px';
+                challengeDiv.style.padding = '10px';
+                challengeDiv.style.border = '1px solid #ddd';
+                challengeDiv.style.borderRadius = '5px';
+                
+                challengeDiv.innerHTML = `
+                    <label>Challenge ${index + 1} Title:</label>
+                    <input type="text" class="challenge-title" value="${challenge.title}" data-index="${index}">
+                    
+                    <label>Challenge ${index + 1} Description:</label>
+                    <textarea class="challenge-desc" rows="2" data-index="${index}">${challenge.description}</textarea>
+                    
+                    <button type="button" onclick="removeChallengeEditField(${index})" style="margin-top: 5px;">Remove</button>
+                `;
+                
+                container.appendChild(challengeDiv);
+            });
+        }
+        
+        function addChallengeEditField() {
+            if (challengesData.length >= 10) {
+                alert("Maximum of 10 challenges allowed");
+                return;
             }
-        });
+            
+            const newIndex = challengesData.length;
+            challengesData.push({ title: `New Challenge ${newIndex + 1}`, description: "" });
+            loadChallengesEditFields();
+        }
+        
+        function removeChallengeEditField(index) {
+            if (challengesData.length <= 1) {
+                alert("You must have at least one challenge");
+                return;
+            }
+            
+            challengesData.splice(index, 1);
+            loadChallengesEditFields();
+        }
+        
+        function saveChanges() {
+            // Save title changes
+            document.getElementById('projectTitle').textContent = document.getElementById('editProjectTitle').value;
+            document.getElementById('projectSubtitle').textContent = document.getElementById('editProjectSubtitle').value;
+            document.getElementById('projectImage').src = document.getElementById('projectImageUrl').value;
+            
+            // Save overview text
+            document.getElementById('overviewText').textContent = document.getElementById('editOverviewText').value;
+            
+            // Save "What You'll Learn" items
+            document.getElementById('learnTitle1').textContent = document.getElementById('learnTitle1Input').value;
+            document.getElementById('learnDesc1').textContent = document.getElementById('learnDesc1Input').value;
+            document.getElementById('learnTitle2').textContent = document.getElementById('learnTitle2Input').value;
+            document.getElementById('learnDesc2').textContent = document.getElementById('learnDesc2Input').value;
+            document.getElementById('learnTitle3').textContent = document.getElementById('learnTitle3Input').value;
+            document.getElementById('learnDesc3').textContent = document.getElementById('learnDesc3Input').value;
+            document.getElementById('learnTitle4').textContent = document.getElementById('learnTitle4Input').value;
+            document.getElementById('learnDesc4').textContent = document.getElementById('learnDesc4Input').value;
+            
+            // Save video tab data
+            document.getElementById('videoIntroText').textContent = document.getElementById('editVideoIntroText').value;
+            document.getElementById('videoTitle').textContent = document.getElementById('editVideoTitle').value;
+            document.getElementById('mainVideo').src = document.getElementById('editMainVideoUrl').value;
+            
+            // Save video key points
+            const keyPointsText = document.getElementById('editVideoKeyPoints').value;
+            const keyPointsList = keyPointsText.split('\n').filter(point => point.trim() !== '');
+            const keyPointsContainer = document.getElementById('videoKeyPoints');
+            keyPointsContainer.innerHTML = '';
+            keyPointsList.forEach(point => {
+                const li = document.createElement('li');
+                li.textContent = point;
+                keyPointsContainer.appendChild(li);
+            });
+            
+            // Save slides data from edit form
+            const slideUrlInputs = document.querySelectorAll('.slide-url');
+            const slideDescInputs = document.querySelectorAll('.slide-desc');
+            const slideTypeSelects = document.querySelectorAll('.slide-type');
+            
+            slidesData = [];
+            slideUrlInputs.forEach((input, index) => {
+                slidesData.push({
+                    url: input.value,
+                    description: slideDescInputs[index].value,
+                    type: slideTypeSelects[index].value
+                });
+            });
+            
+            // Save challenges data from edit form
+            const challengeTitleInputs = document.querySelectorAll('.challenge-title');
+            const challengeDescInputs = document.querySelectorAll('.challenge-desc');
+            
+            challengesData = [];
+            challengeTitleInputs.forEach((input, index) => {
+                challengesData.push({
+                    title: input.value,
+                    description: challengeDescInputs[index].value
+                });
+            });
+            
+            // Update slideshow and challenges display
+            updateSlideshow();
+            updateChallenges();
+            
+            // Show success message
+            alert('Changes saved successfully!');
+            closeEditModal();
+        }
+        
+        function updateSlideshow() {
+            const container = document.getElementById('slideshowContainer');
+            container.innerHTML = '';
+            
+            slidesData.forEach((slide, index) => {
+                if (!slide.url) return;
+                
+                const slideDiv = document.createElement('div');
+                slideDiv.className = 'slide';
+                if (index === 0) slideDiv.classList.add('active');
+                
+                if (slide.type === 'iframe') {
+                    slideDiv.innerHTML = `
+                        <iframe src="${slide.url}" frameborder="0" allowfullscreen></iframe>
+                        <p>${slide.description}</p>
+                    `;
+                } else if (slide.type === 'image') {
+                    slideDiv.innerHTML = `
+                        <img src="${slide.url}" alt="${slide.description}">
+                        <p>${slide.description}</p>
+                    `;
+                }
+                
+                container.appendChild(slideDiv);
+            });
+            
+            // Reset slide navigation
+            currentSlideIndex = 0;
+        }
+        
+        function updateChallenges() {
+            const container = document.getElementById('challengesContainer');
+            container.innerHTML = '';
+            
+            challengesData.forEach((challenge, index) => {
+                if (!challenge.title && !challenge.description) return;
+                
+                const challengeDiv = document.createElement('div');
+                challengeDiv.className = 'step';
+                
+                challengeDiv.innerHTML = `
+                    <div class="step-number">★</div>
+                    <div class="step-content">
+                        <strong>${challenge.title || 'Challenge ' + (index + 1)}</strong>
+                        <p>${challenge.description || ''}</p>
+                    </div>
+                `;
+                
+                container.appendChild(challengeDiv);
+            });
+        }
         
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -845,18 +1316,18 @@
                 speechSynthesis.onvoiceschanged = function() {};
             }
             
-            // Set up iframe heights for slides
-            const slideIframes = document.querySelectorAll('.slide iframe');
-            slideIframes.forEach(iframe => {
-                iframe.style.height = (iframe.offsetWidth * 0.5625) + 'px';
-            });
-        });
-        
-        // Resize iframes when window resizes
-        window.addEventListener('resize', function() {
-            const slideIframes = document.querySelectorAll('.slide iframe');
-            slideIframes.forEach(iframe => {
-                iframe.style.height = (iframe.offsetWidth * 0.5625) + 'px';
+            // Initialize slideshow and challenges
+            updateSlideshow();
+            updateChallenges();
+            
+            // Set up event listeners for iframe resizing
+            window.addEventListener('resize', function() {
+                const iframes = document.querySelectorAll('.slide iframe, .slide img');
+                iframes.forEach(iframe => {
+                    if (iframe.offsetWidth > 0) {
+                        iframe.style.height = (iframe.offsetWidth * 0.5625) + 'px';
+                    }
+                });
             });
         });
     </script>
