@@ -20,6 +20,7 @@
             padding: 0;
             background-color: var(--light);
             color: var(--dark);
+            line-height: 1.6;
         }
         
         header {
@@ -28,6 +29,9 @@
             padding: 1rem;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         .logo {
@@ -35,31 +39,39 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
         
         .logo img {
-            height: 50px;
+            height: 40px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
         }
         
         .project-header {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 15px;
+            margin-bottom: 20px;
             background-color: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            text-align: center;
         }
         
         .project-header img {
-            width: 150px;
+            width: 120px;
             height: auto;
             border-radius: 10px;
         }
@@ -67,33 +79,42 @@
         .project-title {
             color: var(--primary);
             margin: 0;
+            font-size: 1.5rem;
         }
         
         .badge {
             background-color: var(--accent);
             color: white;
-            padding: 5px 10px;
+            padding: 4px 8px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             display: inline-block;
-            margin-top: 10px;
+            margin-top: 8px;
         }
         
         .tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 15px;
             overflow-x: auto;
+            padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .tabs::-webkit-scrollbar {
+            display: none;
         }
         
         .tab {
-            padding: 10px 20px;
+            padding: 8px 15px;
             background-color: white;
             border-radius: 30px;
             cursor: pointer;
             font-weight: bold;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             white-space: nowrap;
+            font-size: 0.9rem;
+            flex-shrink: 0;
         }
         
         .tab.active {
@@ -104,10 +125,11 @@
         .tab-content {
             display: none;
             background-color: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             animation: fadeIn 0.5s;
+            margin-bottom: 20px;
         }
         
         @keyframes fadeIn {
@@ -122,8 +144,10 @@
         h2 {
             color: var(--primary);
             border-bottom: 3px solid var(--secondary);
-            padding-bottom: 10px;
+            padding-bottom: 8px;
             display: inline-block;
+            font-size: 1.3rem;
+            margin-top: 0;
         }
         
         .video-container {
@@ -131,7 +155,7 @@
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            margin: 20px 0;
+            margin: 15px 0;
             border-radius: 10px;
         }
         
@@ -146,7 +170,7 @@
         
         .slideshow {
             position: relative;
-            margin: 20px 0;
+            margin: 15px 0;
         }
         
         .slide {
@@ -154,11 +178,23 @@
             text-align: center;
         }
         
-        .slide img {
-            max-width: 100%;
-            max-height: 400px;
+        .slide iframe {
+            width: 100%;
+            height: 300px;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .slide img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .slide p {
+            margin: 10px 0 0;
+            font-size: 0.9rem;
         }
         
         .slide.active {
@@ -169,61 +205,84 @@
         .slide-nav {
             text-align: center;
             margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
         
         .slide-nav button {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 8px 15px;
-            margin: 0 5px;
+            padding: 6px 12px;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 0.8rem;
         }
         
         .step {
             display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-            padding: 20px;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
             background-color: #f9f9ff;
             border-radius: 10px;
-            align-items: center;
+            align-items: flex-start;
         }
         
         .step-number {
             background-color: var(--secondary);
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-content strong {
+            font-size: 0.95rem;
+        }
+        
+        .step-content p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
         }
         
         .quiz-question {
             background-color: white;
-            padding: 20px;
-            margin-bottom: 15px;
+            padding: 15px;
+            margin-bottom: 12px;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         
+        .quiz-question p {
+            margin: 0 0 10px;
+            font-size: 0.95rem;
+        }
+        
         .quiz-options {
-            margin-top: 15px;
+            margin-top: 10px;
         }
         
         .quiz-option {
             display: block;
-            padding: 10px 15px;
-            margin-bottom: 10px;
+            padding: 8px 12px;
+            margin-bottom: 8px;
             background-color: #f5f5ff;
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 0.9rem;
         }
         
         .quiz-option:hover {
@@ -246,10 +305,11 @@
         }
         
         .quiz-feedback {
-            margin-top: 15px;
-            padding: 10px;
+            margin-top: 10px;
+            padding: 8px;
             border-radius: 5px;
             display: none;
+            font-size: 0.85rem;
         }
         
         .quiz-feedback.correct {
@@ -268,29 +328,30 @@
             background-color: var(--accent);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 10px 20px;
             border-radius: 30px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 20px;
-            font-size: 1rem;
+            margin-top: 15px;
+            font-size: 0.9rem;
             transition: all 0.3s;
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 184, 0, 0.3);
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .progress-container {
             width: 100%;
             background-color: #e0e0e0;
             border-radius: 10px;
-            margin: 30px 0;
+            margin: 20px 0;
+            height: 8px;
         }
         
         .progress-bar {
-            height: 10px;
+            height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: 10px;
             width: 25%;
@@ -299,35 +360,64 @@
         
         .character {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 100px;
+            bottom: 15px;
+            right: 15px;
+            width: 80px;
             cursor: pointer;
             transition: all 0.3s;
             z-index: 100;
-        }
-        
-        .character:hover {
-            transform: scale(1.1);
         }
         
         footer {
             background-color: var(--dark);
             color: white;
             text-align: center;
-            padding: 20px;
-            margin-top: 50px;
+            padding: 15px;
+            margin-top: 30px;
+            font-size: 0.8rem;
         }
         
-        @media (max-width: 768px) {
+        /* Desktop adjustments */
+        @media (min-width: 768px) {
             .project-header {
-                flex-direction: column;
-                text-align: center;
+                flex-direction: row;
+                text-align: left;
+                align-items: center;
+            }
+            
+            .project-header img {
+                width: 150px;
+            }
+            
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+            
+            .project-title {
+                font-size: 1.8rem;
+            }
+            
+            .tab {
+                padding: 10px 20px;
+                font-size: 1rem;
             }
             
             .step {
-                flex-direction: column;
-                text-align: center;
+                align-items: center;
+            }
+            
+            .step-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .character {
+                width: 100px;
+            }
+            
+            .slide iframe {
+                height: 400px;
             }
         }
     </style>
@@ -335,14 +425,14 @@
 <body>
     <header>
         <div class="logo">
-            <img src="https://microbit.org/images/microbit-logo-stacked.png" alt="Micro:bit Logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/MicroBit_logo.png/320px-MicroBit_logo.png" alt="Micro:bit Logo">
             <h1>Micro:bit Adventure</h1>
         </div>
     </header>
     
     <div class="container">
         <div class="project-header">
-            <img src="https://microbit.org/images/beating-heart.gif" alt="Beating Heart Project">
+            <img src="https://www.elecfreaks.com/wp-content/uploads/2022/12/2-1.png" alt="Beating Heart Project">
             <div>
                 <h1 class="project-title">Beating Heart Project</h1>
                 <p>Make your Micro:bit display a beating heart animation!</p>
@@ -357,7 +447,7 @@
         <div class="tabs">
             <div class="tab active" onclick="openTab('overview')">Overview</div>
             <div class="tab" onclick="openTab('video')">Video Lesson</div>
-            <div class="tab" onclick="openTab('slides')">Step-by-Step Guide</div>
+            <div class="tab" onclick="openTab('slides')">Step-by-Step</div>
             <div class="tab" onclick="openTab('quiz')">Quiz</div>
         </div>
         
@@ -368,21 +458,21 @@
             <h3>What You'll Learn</h3>
             <div class="step">
                 <div class="step-number">1</div>
-                <div>
+                <div class="step-content">
                     <strong>Hardware Concepts</strong>
                     <p>How to download & flash code to your Micro:bit and how the LED matrix works</p>
                 </div>
             </div>
             <div class="step">
                 <div class="step-number">2</div>
-                <div>
+                <div class="step-content">
                     <strong>Programming Concepts</strong>
                     <p>The difference between 'on start' and 'forever' blocks, and how to create simple animations</p>
                 </div>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
-                <div>
+                <div class="step-content">
                     <strong>Computational Thinking</strong>
                     <p>How to break down problems into smaller steps (decomposition) and recognize patterns</p>
                 </div>
@@ -391,14 +481,20 @@
         
         <div id="video" class="tab-content">
             <h2>Video Lesson</h2>
-            <p>Watch this fun video to learn how to create the beating heart animation:</p>
+            <p>Watch these videos to learn how to create the beating heart animation:</p>
             
+            <h3>Introduction to Micro:bit</h3>
             <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/0hdJb4xJ7X0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/8qzYWH10o6E" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             
-            <h3>Key Points from the Video</h3>
-            <ul>
+            <h3>Programming the Beating Heart</h3>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/2yzT7_QGLLc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            
+            <h3>Key Points from the Videos</h3>
+            <ul style="font-size: 0.9rem; padding-left: 20px;">
                 <li>The LED matrix has 25 lights (5 rows x 5 columns)</li>
                 <li>'on start' runs once when the Micro:bit turns on</li>
                 <li>'forever' keeps repeating the code inside it</li>
@@ -411,40 +507,40 @@
             
             <div class="slideshow">
                 <div class="slide active">
-                    <img src="https://makecode.microbit.org/assets/start-tutorials/heart-1.png" alt="Step 1">
-                    <p>1. Open MakeCode and start a new project</p>
+                    <iframe src="https://view.genially.com/67de49ded67908621a726b03" frameborder="0" allowfullscreen></iframe>
+                    <p>1. Introduction to the Beating Heart project</p>
                 </div>
                 <div class="slide">
-                    <img src="https://makecode.microbit.org/assets/start-tutorials/heart-2.png" alt="Step 2">
-                    <p>2. Drag a 'show icon' block into the 'on start' section</p>
+                    <iframe src="https://view.genially.com/67de49e4ab31ac746b27c48b" frameborder="0" allowfullscreen></iframe>
+                    <p>2. Setting up your Micro:bit environment</p>
                 </div>
                 <div class="slide">
-                    <img src="https://makecode.microbit.org/assets/start-tutorials/heart-3.png" alt="Step 3">
-                    <p>3. Click on the heart icon to select it</p>
+                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 3">
+                    <p>3. Creating your first heart animation</p>
                 </div>
                 <div class="slide">
-                    <img src="https://makecode.microbit.org/assets/start-tutorials/heart-4.png" alt="Step 4">
-                    <p>4. Add a 'pause' block after the 'show icon' block</p>
+                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 4">
+                    <p>4. Adding pauses between animations</p>
                 </div>
                 <div class="slide">
-                    <img src="https://makecode.microbit.org/assets/start-tutorials/heart-5.png" alt="Step 5">
-                    <p>5. Set the pause time to 500ms (half a second)</p>
+                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 5">
+                    <p>5. Adjusting the animation timing</p>
                 </div>
                 <div class="slide">
-                    <img src="https://makecode.microbit.org/assets/start-tutorials/heart-6.png" alt="Step 6">
-                    <p>6. Add another 'show icon' block with a smaller heart</p>
+                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 6">
+                    <p>6. Creating the smaller heart animation</p>
                 </div>
                 <div class="slide">
-                    <img src="https://makecode.microbit.org/assets/start-tutorials/heart-7.png" alt="Step 7">
-                    <p>7. Add another pause block with the same time</p>
+                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 7">
+                    <p>7. Adding the second pause</p>
                 </div>
                 <div class="slide">
-                    <img src="https://makecode.microbit.org/assets/start-tutorials/heart-8.png" alt="Step 8">
-                    <p>8. Put all this inside a 'forever' loop to make it repeat</p>
+                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 8">
+                    <p>8. Putting it all in a forever loop</p>
                 </div>
                 <div class="slide">
-                    <img src="https://makecode.microbit.org/assets/start-tutorials/heart-9.png" alt="Step 9">
-                    <p>9. Download the code to your Micro:bit and watch it beat!</p>
+                    <img src="https://clearinghouse.starnetlibraries.org/images/525/microbit-heart.jpg" alt="Step 9">
+                    <p>9. Downloading and testing your program</p>
                 </div>
             </div>
             
@@ -456,21 +552,21 @@
             <h3>Try These Challenges!</h3>
             <div class="step">
                 <div class="step-number">★</div>
-                <div>
+                <div class="step-content">
                     <strong>Make it faster or slower</strong>
                     <p>Change the pause times to make the heart beat faster or slower</p>
                 </div>
             </div>
             <div class="step">
                 <div class="step-number">★</div>
-                <div>
+                <div class="step-content">
                     <strong>Create a blinking smiley</strong>
                     <p>Use the same technique but with smiley faces instead of hearts</p>
                 </div>
             </div>
             <div class="step">
                 <div class="step-number">★</div>
-                <div>
+                <div class="step-content">
                     <strong>Add a button control</strong>
                     <p>Make the heart only beat when you press button A</p>
                 </div>
@@ -584,10 +680,26 @@
                 options[i].classList.remove('selected');
             }
             option.classList.add('selected');
+            
+            // Remove any existing feedback
+            const feedbacks = option.closest('.quiz-question').querySelectorAll('.quiz-feedback');
+            feedbacks.forEach(fb => fb.style.display = 'none');
         }
         
         function submitQuiz() {
-            alert("Quiz submitted! Great job learning about the Beating Heart project!");
+            const selectedOptions = document.querySelectorAll('.quiz-option.selected');
+            if (selectedOptions.length < 3) {
+                alert("Please answer all questions before submitting!");
+                return;
+            }
+            
+            // Show feedback for each question
+            document.querySelectorAll('.quiz-feedback').forEach(fb => {
+                fb.style.display = 'block';
+            });
+            
+            // Scroll to first question
+            document.querySelector('.quiz-question').scrollIntoView({ behavior: 'smooth' });
         }
         
         // Progress bar
@@ -602,19 +714,31 @@
         
         // Character speech
         function speak(message) {
-            const voices = window.speechSynthesis.getVoices();
+            // Check if speech synthesis is supported
+            if (!window.speechSynthesis) {
+                alert("Your browser doesn't support text-to-speech. Here's the message: " + message);
+                return;
+            }
+            
             const speech = new SpeechSynthesisUtterance();
             speech.text = message;
             speech.volume = 1;
             speech.rate = 0.9;
             speech.pitch = 1.2;
             
-            // Find a child-friendly voice if available
-            for (let i = 0; i < voices.length; i++) {
-                if (voices[i].name.includes('Child') || voices[i].name.includes('Kids')) {
-                    speech.voice = voices[i];
-                    break;
-                }
+            // Cancel any ongoing speech
+            window.speechSynthesis.cancel();
+            
+            // Try to find a child-friendly voice
+            const voices = window.speechSynthesis.getVoices();
+            const childVoice = voices.find(voice => 
+                voice.name.includes('Child') || 
+                voice.name.includes('Kids') ||
+                voice.name.includes('Young')
+            );
+            
+            if (childVoice) {
+                speech.voice = childVoice;
             }
             
             window.speechSynthesis.speak(speech);
@@ -624,7 +748,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             updateProgressBar('overview');
             
-            // Load voices for speech
+            // Load voices for speech (some browsers need this)
             if (speechSynthesis.onvoiceschanged !== undefined) {
                 speechSynthesis.onvoiceschanged = function() {};
             }
